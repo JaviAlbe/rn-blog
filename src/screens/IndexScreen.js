@@ -3,6 +3,15 @@ import { View, Text, StyleSheet, FlatList, Button, TouchableOpacity } from 'reac
 import { Context } from '../context/BlogContext'
 import { Feather } from '@expo/vector-icons'
 
+/**
+ *  return {
+ *     headerRight: () => (
+ *       <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+ *         <Feather name="plus" size={30} />
+ *       </TouchableOpacity>
+ *     ),
+ *   };*/
+
 const IndexScreen = ({ navigation }) => {
     const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
@@ -29,6 +38,16 @@ const IndexScreen = ({ navigation }) => {
             </View>
     );
 };
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+                <Feather name="plus" size={30} />
+            </TouchableOpacity>
+        ),
+    };
+}
 
 const styles = StyleSheet.create({
     row: {
