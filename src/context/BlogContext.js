@@ -40,9 +40,16 @@ const getBlogPosts = dispatch => {
 }
 
 const addBlogPost = (dispatch) => {
-    return (title, content, callback) => {
-        dispatch({ type: 'add_blogpost', payload: { title, content } })
-        callback()
+    return async (title, content, callback) => {
+        //to add a blog in the server we use the post() method
+        await jsonServer.post('/blogposts', {title, content})
+        if (callback){
+            callback()
+        }
+
+        //locally adding a blog post
+        // dispatch({ type: 'add_blogpost', payload: { title, content } })
+        // callback()
     }
 }
 
