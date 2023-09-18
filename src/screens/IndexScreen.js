@@ -11,6 +11,16 @@ const IndexScreen = ({ navigation }) => {
     //We call getBlogPosts only once, hence the empty array of useEffect
     useEffect(() => {
         getBlogPosts()
+        //every time IndexScreen is on focus, we will execute this callback function
+        const listener = navigation.addListener('didFocus', ()=> {
+            getBlogPosts()
+        })
+
+        //This return function inside useEffect will trigger when this component is unmounted
+        return () => {
+            //We will use this to clear any listener
+            listener.remove()
+        }
     }, [])
 
     return (
