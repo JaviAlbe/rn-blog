@@ -11,15 +11,16 @@ const blogReducer = (state, action) => {
         case 'delete_blogpost':
             return state.filter((blogPost) => blogPost.id !== action.payload )
 
-        case 'add_blogpost':
-            return [
-                ...state,
-                {
-                    id: Math.floor(Math.random() * 99999),
-                    title: action.payload.title,
-                    content: action.payload.content
-                }
-            ]
+        //Removed after modifying addBlogPosts() to make it point to the ngrok server
+        // case 'add_blogpost':
+        //     return [
+        //         ...state,
+        //         {
+        //             id: Math.floor(Math.random() * 99999),
+        //             title: action.payload.title,
+        //             content: action.payload.content
+        //         }
+        //     ]
 
         case 'edit_blogpost':
             //We map through all the current blog posts to find the one with the correct ID.
@@ -54,14 +55,22 @@ const addBlogPost = (dispatch) => {
 }
 
 const editBlogPost = dispatch => {
-    return (id, title, content, callback) => {
+    return async (id, title, content, callback) => {
+        //to remove a blog post in the server we use delete() method
+        await jsonServer.put(`/blogposts/${id}`, { title, content})
+
         dispatch({ type:'edit_blogpost', payload: { id, title, content } })
-        callback()
+        if(callback){
+            callback()
+        }
     }
 }
 
 const deleteBlogPost = (dispatch) => {
-    return (id) => {
+    return async (id) => {
+        //To edit a blog post we use the put() method
+        await jsonServer.delete(`/blogposts/${id}`)
+
         dispatch({ type: 'delete_blogpost', payload: id})
     }
 }
