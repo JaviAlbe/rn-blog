@@ -1,19 +1,18 @@
 import React, { useContext } from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import { Context } from '../context/BlogContext'
+import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import { Context } from '../context/NotesContext'
 import { EvilIcons } from "@expo/vector-icons";
-import IndexScreen from "./IndexScreen";
 
 const ShowScreen = ({ navigation }) => {
 
     const { state } = useContext(Context)
 
-    const blogPost = state.find((blogPost) => blogPost.id === navigation.getParam('id'))
+    const note = state.find((note) => note.id === navigation.getParam('id'))
 
     return(
-        <View>
-            <Text>{blogPost.title}</Text>
-            <Text>{blogPost.content}</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>{note.title}</Text>
+            <Text style={styles.content}>{note.content}</Text>
         </View>
     )
 }
@@ -29,7 +28,25 @@ ShowScreen.navigationOptions = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        fontSize:18,
+        borderWidth:0.5,
+        borderColor:'grey',
+        borderRadius:6,
+        marginBottom: 15,
+        padding: 5,
+        margin: 5,
+    },
+    title: {
+        fontSize:20,
+        marginBottom: 10,
+        marginLeft: 5,
+    },
+    content:{
+        fontSize:16,
+        marginBottom: 10,
+        marginLeft: 5,
+    }
 })
 
 export default ShowScreen

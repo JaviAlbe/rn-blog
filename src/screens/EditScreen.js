@@ -1,20 +1,18 @@
 import React, { useContext } from "react";
-import { Context } from "../context/BlogContext";
-import BlogPostForm from "../Components/BlogPostForm";
-
+import { Context } from "../context/NotesContext";
+import NotesForm from "../Components/NotesForm";
 
 const EditScreen = ({ navigation }) => {
 
-    const { state, editBlogPost } = useContext(Context)
+    const { state, editNote } = useContext(Context)
 
-    const blogPostId = navigation.getParam('id')
+    const noteId = navigation.getParam('id')
 
-    const blogPost = state.find((blogPost) => blogPost.id === blogPostId)
+    const note = state.find((blogPost) => blogPost.id === noteId)
 
-    return <BlogPostForm
-        initialValues={{ title: blogPost.title, content: blogPost.content }}
-        onSubmit={(newTitle, newContent) => editBlogPost(blogPostId, newTitle, newContent, () => navigation.pop())} />
+    return <NotesForm
+        initialValues={{ title: note.title, content: note.content }}
+        onSubmit={(newTitle, newContent) => editNote(noteId, newTitle, newContent, () => navigation.pop())} />
 }
-
 
 export default EditScreen
