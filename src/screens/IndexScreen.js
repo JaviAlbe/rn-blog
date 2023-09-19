@@ -1,19 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native';
-import { Context } from '../context/BlogContext'
+import { Context } from '../context/NotesContext'
 import { Feather } from '@expo/vector-icons'
 
 const IndexScreen = ({ navigation }) => {
 
     //We destructure the objects from the context reducer we will use in this component
-    const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
+    const { state, deleteNote, getNotes } = useContext(Context);
 
-    //We call getBlogPosts only once, hence the empty array of useEffect
+    //We call getNotes only once, hence the empty array of useEffect
     useEffect(() => {
-        getBlogPosts()
+        getNotes()
         //every time IndexScreen is on focus, we will execute this callback function
         const listener = navigation.addListener('didFocus', ()=> {
-            getBlogPosts()
+            getNotes()
         })
 
         //This return function inside useEffect will trigger when this component is unmounted
@@ -24,17 +24,16 @@ const IndexScreen = ({ navigation }) => {
     }, [])
 
     return (
-
             <View>
                 <FlatList
                     data={state}
-                    keyExtractor={(blogPost) => blogPost.title}
+                    keyExtractor={(note) => note.title}
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity onPress={() => navigation.navigate('Show', { id: item.id })}>
                                 <View style={styles.row}>
                                     <Text style={styles.title}>{item.title} - {item.id}</Text>
-                                    <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                                    <TouchableOpacity onPress={() => deleteNote(item.id)}>
                                         <Feather style={styles.icon} name='trash' />
                                     </TouchableOpacity>
                                 </View>
