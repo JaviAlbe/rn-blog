@@ -1,19 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native';
 import { Context } from '../context/BlogContext'
 import { Feather } from '@expo/vector-icons'
 
-/**
- *  return {
- *     headerRight: () => (
- *       <TouchableOpacity onPress={() => navigation.navigate('Create')}>
- *         <Feather name="plus" size={30} />
- *       </TouchableOpacity>
- *     ),
- *   };*/
-
 const IndexScreen = ({ navigation }) => {
-    const { state, deleteBlogPost } = useContext(Context);
+
+    //We destructure the objects from the context reducer we will use in this component
+    const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
+
+    //We call getBlogPosts only once, hence the empty array of useEffect
+    useEffect(() => {
+        getBlogPosts()
+        //every time IndexScreen is on focus, we will execute this callback function
+        const listener = navigation.addListener('didFocus', ()=> {
+            getBlogPosts()
+        })
+
+        //This return function inside useEffect will trigger when this component is unmounted
+        return () => {
+            //We will use this to clear any listener
+            listener.remove()
+        }
+    }, [])
 
     return (
 
