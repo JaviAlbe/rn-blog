@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native';
 import { Context } from '../context/NotesContext'
-import { Feather } from '@expo/vector-icons'
+import { Feather, FontAwesome } from '@expo/vector-icons'
 
 const IndexScreen = ({ navigation }) => {
 
@@ -32,7 +32,10 @@ const IndexScreen = ({ navigation }) => {
                         return (
                             <TouchableOpacity onPress={() => navigation.navigate('Show', { id: item.id })}>
                                 <View style={styles.row}>
-                                    <Text style={styles.title}>{item.title} - {item.id}</Text>
+                                    <View style={styles.iconContainer}>
+                                        <FontAwesome style={styles.icon} name="sticky-note" size={20} />
+                                    </View>
+                                    <Text style={styles.title}>{item.title}</Text>
                                     <TouchableOpacity onPress={() => deleteNote(item.id)}>
                                         <Feather style={styles.icon} name='trash' />
                                     </TouchableOpacity>
@@ -64,10 +67,17 @@ const styles = StyleSheet.create({
         borderTopWidth:1,
         borderColor:'grey'
     },
+    iconContainer: {
+
+    },
     title: {
+        flex: 3,
+        marginStart: 16,
+        marginEnd: 16,
         fontSize:18,
     },
     icon: {
+        flex: 1,
         fontSize: 24,
     }
 });
