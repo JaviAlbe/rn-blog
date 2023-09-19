@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import { Context } from "../context/BlogContext";
-import BlogPostForm from "../Components/BlogPostForm";
+import { Context } from "../context/NotesContext";
+import NotesForm from "../Components/NotesForm";
 
 const CreateScreen = ({ navigation }) => {
 
-    const { addBlogPost } = useContext(Context)
+    const { addNote } = useContext(Context)
 
-    return <BlogPostForm onSubmit={(title, content) => {
-        addBlogPost(title, content, () => navigation.navigate('Index'))
+    return <NotesForm onSubmit={(title, content) => {
+        addNote(title, content, () => navigation.navigate('Index'))
     }}/>
 
 }
