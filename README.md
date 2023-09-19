@@ -1,7 +1,8 @@
 # RN Notes - a simple note-keeping app.
 
 Simple note-keeping app using React createContext() & useContext() to manage app state.
+It uses ngrok to host a JSON file which stores the notes.
 
-API: https://spoonacular.com/food-api
+API: https://ngrok.com/
 
-![alt text](https://i.postimg.cc/6pt0GT54/Thumbnail-1.png)
+![](src/images/Screen capture.png)
