@@ -5,4 +5,4 @@ It uses ngrok to host a JSON file which stores the notes.
 
 API: https://ngrok.com/
 
-![ScreenShot](src/images/Screen capture.png)
+![ScreenShot](src/images/screenshots.png)
