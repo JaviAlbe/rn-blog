@@ -23,6 +23,7 @@ const notesReducer = (state, action) => {
 }
 
 const getNotes = dispatch => {
+    console.log('');
     return async () => {
         const response = await jsonServer.get('/notes')
         dispatch({ type: 'get_notes', payload: response.data })
